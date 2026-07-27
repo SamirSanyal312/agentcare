@@ -1,20 +1,19 @@
 # AgentCare
 
-AgentCare is an agentic AI application for healthcare administration
-and care coordination.
+AgentCare is an agentic AI application for healthcare administration and care coordination.
 
-The system coordinates non-clinical patient workflows such as:
+It coordinates non-clinical patient workflows including:
 
 - patient registration
 - administrative intent detection
 - department routing
-- appointment scheduling
+- appointment scheduling and rescheduling
 - document coordination
 - reminders
 - follow-up scheduling
 - human escalation
 
-## Safety Boundary
+## Healthcare Safety Boundary
 
 AgentCare is not a diagnosis or treatment system.
 
@@ -24,83 +23,110 @@ The application does not autonomously:
 - prescribe medication
 - recommend medication dosages
 - change treatment
-- replace clinician judgement
+- interpret medical findings as clinical advice
+- replace clinician judgment
 
-Medical and uncertain requests are escalated for human review.
+Medical, emergency, uncertain, or sensitive requests are escalated for human review.
 
-## Technology
+## Planned Agent Architecture
 
-- Python
+AgentCare will use multiple specialized agents coordinated through a persistent workflow:
+
+- Coordinator Agent
+- Safety Agent
+- Department Routing Agent
+- Appointment Agent
+- Document Agent
+- Follow-up Agent
+
+Agents interact with real application tools backed by persistent SQL data.
+
+## Technology Stack
+
+### Backend
+
+- Python 3.11+
 - FastAPI
 - SQLAlchemy
 - Alembic
+- Pydantic
+
+### Agentic AI
+
 - LangGraph
 - LangChain
 - Groq
 - Qwen
+
+### Database
+
 - SQLite for local development
 - PostgreSQL-compatible architecture
 
-## Development
+### Frontend
+
+- Jinja2
+- HTMX
+- Bootstrap
+
+## LLM
+
+AgentCare currently uses Groq with:
+
+```text
+qwen/qwen3.6-27b
+```
+
+The LLM provider is configured through environment variables and is not hardcoded into individual agents.
+
+## Development Setup
 
 Create a virtual environment:
 
 ```bash
 python -m venv .venv
+```
+
+Activate it on Windows:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
-Create the local configuration:
-
-cp .env.example .env
-
-Run the application:
-
-uvicorn app.main:app --reload
-Status
-
-AgentCare is currently under active development for the
-AgentCare Build Challenge 2026.
-
-Only synthetic/anonymized patient data is used.
-
-
-We'll replace this with a much stronger README later.
-
----
-
-# 17. Verify secrets before committing
-
-Run:
+Create the local environment file:
 
 ```powershell
-git status
+Copy-Item .env.example .env
+```
 
-Make sure .env is not there. Check
+Add the required local credentials to `.env`.
 
-Then:
+Never commit `.env`.
 
-git check-ignore .env
+Run the FastAPI application:
 
-Expected:
+```bash
+uvicorn app.main:app --reload
+```
 
-.env
+The API will be available at:
 
-Excellent.
+```text
+http://127.0.0.1:8000
+```
 
-Also:
+## Data and Privacy
 
-git status
+AgentCare uses only synthetic or anonymized sample data.
 
-should show:
+Real patient data, private credentials, production tokens, and API secrets must never be committed to this repository.
 
-.env.example
-.gitignore
-README.md
-requirements.txt
-app/
-scripts/
-storage/
-tests/
+## Project Status
+
+AgentCare is under active development for the AgentCare Build Challenge 2026.
