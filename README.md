@@ -78,7 +78,7 @@ Run:
 ```powershell
 git status
 
-Make sure .env is not there.
+Make sure .env is not there. Check
 
 Then:
 
