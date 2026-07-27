@@ -1,0 +1,31 @@
+# Web backend
+fastapi
+uvicorn[standard]
+python-multipart
+jinja2
+
+# Configuration
+pydantic
+pydantic-settings
+python-dotenv
+
+# Database
+sqlalchemy
+alembic
+
+# Agent orchestration
+langchain
+langgraph
+
+# LLM - Groq
+groq
+langchain-groq
+
+# Authentication - used in next milestone
+PyJWT
+pwdlib[argon2]
+
+# Testing
+pytest
+pytest-asyncio
+httpx
