@@ -1,8 +1,8 @@
 """create initial AgentCare schema
 
-Revision ID: 61494a121f96
+Revision ID: 13057f056332
 Revises: 
-Create Date: 2026-07-27 13:28:04.842193
+Create Date: 2026-07-27 13:58:50.773566
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '61494a121f96'
+revision: str = '13057f056332'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -158,7 +158,7 @@ def upgrade() -> None:
     sa.Column('entity_type', sa.String(length=100), nullable=False),
     sa.Column('entity_id', sa.String(length=64), nullable=True),
     sa.Column('event_data', sa.JSON(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), server_default='CURRENT_TIMESTAMP', nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=False),
     sa.ForeignKeyConstraint(['actor_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['workflow_run_id'], ['workflow_runs.id'], ),
     sa.PrimaryKeyConstraint('id')

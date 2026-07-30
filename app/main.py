@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 
+from app.api.routes import admin
+from app.api.routes import auth
+from app.api.routes import patient
+from app.api.routes import staff
 from app.config import settings
 
 
@@ -9,8 +13,14 @@ app = FastAPI(
         "Agentic AI for healthcare administration "
         "and care coordination."
     ),
-    version="0.1.0",
+    version="0.2.0",
 )
+
+
+app.include_router(auth.router)
+app.include_router(patient.router)
+app.include_router(staff.router)
+app.include_router(admin.router)
 
 
 @app.get("/")

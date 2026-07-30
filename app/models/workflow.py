@@ -2,11 +2,20 @@ from __future__ import annotations
 
 from datetime import datetime
 
+#from sqlalchemy import ForeignKey
+#from sqlalchemy import Integer
+#from sqlalchemy import JSON
+#from sqlalchemy import String
+#from sqlalchemy import Text
+
+from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import JSON
 from sqlalchemy import String
 from sqlalchemy import Text
+from sqlalchemy import func
+
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
@@ -230,8 +239,9 @@ class AuditEvent(Base):
     )
 
     created_at: Mapped[datetime] = mapped_column(
-        server_default="CURRENT_TIMESTAMP",
-        nullable=False,
+    DateTime(timezone=True),
+    server_default=func.now(),
+    nullable=False,
     )
 
     actor = relationship("User")

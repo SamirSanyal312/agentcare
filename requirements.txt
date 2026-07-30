@@ -29,3 +29,5 @@ pwdlib[argon2]
 pytest
 pytest-asyncio
 httpx
+
+email-validator
